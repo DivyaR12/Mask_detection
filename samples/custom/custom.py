@@ -61,7 +61,7 @@ class CustomDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("object", 1, "defect")
+        self.add_class("name", 1, "defect")
         #self.add_class("object", 2, "balloon")
  
         # Train or validation dataset?
@@ -98,7 +98,7 @@ class CustomDataset(utils.Dataset):
             # the outline of each object instance. There are stores in the
             # shape_attributes (see json format above)
             polygons = [r['shape_attributes'] for r in a['regions']]
-            objects = [s['region_attributes']['objects'] for s in a['regions']]
+            objects = [s['region_attributes']['name'] for s in a['regions']]
             print("objects:",objects)
             name_dict = {"defect": 1}
             # key = tuple(name_dict)
