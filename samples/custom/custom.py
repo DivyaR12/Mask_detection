@@ -130,13 +130,13 @@ class CustomDataset(utils.Dataset):
         """
         # If not a bottle dataset image, delegate to parent class.
         image_info = self.image_info[image_id]
-        if image_info["source"] != "object":
+        if image_info["source"] != "defect":
             return super(self.__class__, self).load_mask(image_id)
  
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
         info = self.image_info[image_id]
-        if info["source"] != "object":
+        if info["source"] != "defect":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
         mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
@@ -154,7 +154,7 @@ class CustomDataset(utils.Dataset):
     def image_reference(self, image_id):
         """Return the path of the image."""
         info = self.image_info[image_id]
-        if info["source"] == "object":
+        if info["source"] == "defect":
             return info["path"]
         else:
             super(self.__class__, self).image_reference(image_id)
